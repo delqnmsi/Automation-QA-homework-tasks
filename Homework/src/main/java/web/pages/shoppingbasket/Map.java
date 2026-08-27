@@ -34,19 +34,19 @@ public class Map extends BaseMap {
     }
 
     public WebElement itemInOrderTitle(WebElement row) {
-        return row.findElement(By.xpath(".//span[@class='a-truncate-cut']"));
+        return row.findElement(By.cssSelector("span.a-truncate-cut"));
     }
 
     public WebElement itemInOrderGiftCheckBox(WebElement row) {
-        return row.findElement(By.xpath(".//div[contains(@class,'a-checkbox')]//input"));
+        return row.findElement(By.cssSelector("div.a-checkbox input"));
     }
 
     public WebElement itemInOrderQuantity(WebElement row) {
-        return row.findElement(By.xpath(".//span[@data-a-selector='inner-value']"));
+        return row.findElement(By.cssSelector("span[data-a-selector='inner-value']"));
     }
 
     public WebElement itemFormat(WebElement row) {
-        return row.findElement(By.xpath(".//ul[@id='sc-product-variation-list']"));
+        return row.findElement(By.cssSelector("ul#sc-product-variation-list"));
     }
 
     public WebElement itemInOrderPrice(WebElement row) {
@@ -56,11 +56,11 @@ public class Map extends BaseMap {
 
     public WebElement availability(WebElement row) {
         return row.findElement(
-                By.xpath(".//span[@data-csa-c-content-id='availability']"));
+                By.cssSelector("span[data-csa-c-content-id='availability']"));
     }
 
     public WebElement itemDeleteButton(WebElement row) {
         return row.findElement(
-                By.xpath(".//button[@data-action='a-stepper-decrement']"));
+                By.cssSelector("button[data-action='a-stepper-decrement']"));
     }
 }

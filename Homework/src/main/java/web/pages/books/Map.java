@@ -10,7 +10,7 @@ public class Map extends BaseMap {
 
     public WebElement pageLabel() {
         return driver.findElement(
-                By.xpath("//div[@id='nav-progressive-subnav']//a[@aria-label='Books']"));
+                By.cssSelector("#nav-progressive-subnav a[aria-label='Books']"));
     }
 
     public WebElement bookTitle() {
@@ -20,17 +20,17 @@ public class Map extends BaseMap {
     public WebElement selectedBookType() {
         return selectedSellCharacteristics().getFirst()
                 .findElement(
-                        By.xpath(".//span[@class='slot-title']"));
+                        By.cssSelector("span.slot-title"));
     }
 
     public WebElement selectedBookPrice() {
         return selectedSellCharacteristics().getFirst()
                 .findElement(
-                        By.xpath(".//span[@class='slot-price']"));
+                        By.cssSelector("span.slot-price"));
     }
 
     public List<WebElement> selectedSellCharacteristics() {
-        return driver.findElements(By.xpath("//span[contains(@class,'a-button-selected')]"));
+        return driver.findElements(By.cssSelector("span.a-button-selected"));
     }
 
     public By selectAsAGiftButtonBy = By.xpath("//div[@class='offer-display-feature-text']");
@@ -39,7 +39,7 @@ public class Map extends BaseMap {
         return driver.findElement(selectAsAGiftButtonBy);
     }
 
-    public By selectAsAGiftReverseButtonBy = By.xpath("//span[contains(@class,'gift-wrap-message')]");
+    public By selectAsAGiftReverseButtonBy = By.cssSelector("span.gift-wrap-message");
 
     public WebElement selectAsAGiftReverseButton() {
         return driver.findElement(selectAsAGiftReverseButtonBy);
@@ -79,6 +79,6 @@ public class Map extends BaseMap {
 
     public WebElement averageCustomerRating() {
         return driver.findElement(
-                By.xpath("//div[@id='averageCustomerReviews']//span[@class='a-icon-alt']"));
+                By.cssSelector("#averageCustomerReviews span.a-icon-alt"));
     }
 }
