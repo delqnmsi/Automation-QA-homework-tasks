@@ -37,10 +37,6 @@ public final class ConfigReader {
         }
     }
 
-    // ---------------------------------------------------------------------
-    // Generic accessors
-    // ---------------------------------------------------------------------
-
     public String get(String key, String defaultValue) {
         String systemProperty = System.getProperty(key);
         if (systemProperty != null && !systemProperty.isEmpty()) {
@@ -72,10 +68,6 @@ public final class ConfigReader {
         String value = get(key, null);
         return value != null ? Boolean.parseBoolean(value) : defaultValue;
     }
-
-    // ---------------------------------------------------------------------
-    // Typed convenience accessors — add more here as the framework grows
-    // ---------------------------------------------------------------------
 
     public String getEnvironment() {
         return get("environment", "qa");

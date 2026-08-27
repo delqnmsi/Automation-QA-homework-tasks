@@ -30,10 +30,6 @@ public class WaitUtils {
         return new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
     }
 
-    // -------------------------------------------------------------------
-    // Presence / visibility / clickability
-    // -------------------------------------------------------------------
-
     public WebElement waitForElementToBePresent(By locator) {
         return waitForElementToBePresent(locator, config.getElementTimeoutSeconds());
     }
@@ -86,10 +82,6 @@ public class WaitUtils {
         }
     }
 
-    // -------------------------------------------------------------------
-    // Navigation / page state
-    // -------------------------------------------------------------------
-
     public boolean waitForUrlContains(String fragment) {
         return wait(config.getPageLoadTimeoutSeconds()).until(ExpectedConditions.urlContains(fragment));
     }
@@ -110,10 +102,6 @@ public class WaitUtils {
     public void waitForElementToDisappear(By locator, int timeoutSeconds) {
         wait(timeoutSeconds).until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
-
-    // -------------------------------------------------------------------
-    // Escape hatches for anything not covered above
-    // -------------------------------------------------------------------
 
     public FluentWait<WebDriver> fluentWait(int timeoutSeconds, int pollingMillis) {
         return new FluentWait<>(driver)
