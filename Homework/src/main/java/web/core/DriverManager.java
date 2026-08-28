@@ -18,7 +18,6 @@ public final class DriverManager {
         return driver;
     }
 
-    /** Current thread's driver, or {@code null} if none has been set — never throws. */
     static WebDriver peekDriver() {
         return DRIVER_THREAD_LOCAL.get();
     }
