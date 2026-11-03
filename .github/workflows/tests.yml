@@ -13,6 +13,9 @@ jobs:
   unit-tests:
     name: Unit & Mockito tests (threads, jUnitAndCode)
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Homework
     steps:
       - uses: actions/checkout@v7
 
@@ -22,6 +25,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
+          cache-dependency-path: Homework/pom.xml
 
       - name: Run unit tests
         run: >
@@ -33,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: allure-results-unit
-          path: target/allure-results
+          path: Homework/target/allure-results
           retention-days: 5
 
       - name: Upload surefire reports
@@ -41,13 +45,16 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: surefire-reports-unit
-          path: target/surefire-reports
+          path: Homework/target/surefire-reports
           retention-days: 5
 
   selenium-tests:
     name: Selenium E2E tests (live site - allowed to fail)
     runs-on: ubuntu-latest
     continue-on-error: true
+    defaults:
+      run:
+        working-directory: Homework
     steps:
       - uses: actions/checkout@v7
 
@@ -57,6 +64,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
+          cache-dependency-path: Homework/pom.xml
 
       - name: Run Selenium tests (headless)
         run: mvn -B test -Dtest=AmazonBookBuyTests -Dheadless=true
@@ -66,7 +74,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: allure-results-selenium
-          path: target/allure-results
+          path: Homework/target/allure-results
           retention-days: 5
 
       - name: Upload failure screenshots
@@ -74,7 +82,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: selenium-screenshots
-          path: target/screenshots
+          path: Homework/target/screenshots
           retention-days: 5
           if-no-files-found: ignore
 
