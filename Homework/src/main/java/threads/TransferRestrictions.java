@@ -68,16 +68,18 @@ public final class TransferRestrictions {
         }
     }
 
+    private static final List<TransferRule> RULES = List.of(
+            new UniqueFileNamesRule(),
+            new AllowedExtensionRule(),
+            new MaxFileSizeRule());
+
     public static void checkCombinedRestrictions(List<DownloadInfo> infos) {
         if (infos == null || infos.isEmpty()) {
             throw new IllegalArgumentException("Files not found");
         }
 
-        checkFileNamesUnique(infos.stream().map(DownloadInfo::getOriginalFileName).toList());
-
-        for (DownloadInfo info : infos) {
-            checkAllowedExtensions(info.getOriginalFileName());
-            checkFileFitsMaxDownloadSizeAllowed(info.getOriginalFileName(), info.getSize());
+        for (TransferRule rule : RULES) {
+            rule.check(infos);
         }
     }
 }

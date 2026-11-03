@@ -6,6 +6,9 @@
 # Maven
 target/
 
+# Allure Maven plugin's local tool cache (downloaded Node runtime + report generator)
+.allure/
+
 # Compiled files
 *.class
 

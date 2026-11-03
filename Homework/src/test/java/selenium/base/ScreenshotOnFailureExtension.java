@@ -1,6 +1,7 @@
 package selenium.base;
 
 
+import io.qameta.allure.Allure;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.OutputType;
@@ -10,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import web.core.DriverManager;
 
-import java.io.File;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,14 +32,16 @@ public class ScreenshotOnFailureExtension implements AfterTestExecutionCallback 
 
         try {
             WebDriver driver = DriverManager.getDriver();
-            Files.createDirectories(SCREENSHOT_DIR);
+            byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 
+            Files.createDirectories(SCREENSHOT_DIR);
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss_SSS"));
             String fileName = context.getDisplayName().replaceAll("[^a-zA-Z0-9_-]", "_") + "_" + timestamp + ".png";
-
-            File source = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             Path destination = SCREENSHOT_DIR.resolve(fileName);
-            Files.copy(source.toPath(), destination);
+            Files.write(destination, screenshot);
+
+            Allure.addAttachment(context.getDisplayName() + " - failure screenshot", "image/png",
+                    new ByteArrayInputStream(screenshot), "png");
 
             log.error("Test failed: {} — screenshot saved to {}", context.getDisplayName(), destination);
         } catch (IOException | IllegalStateException | ClassCastException e) {
